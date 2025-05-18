@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart - Soggy Potatoes</title>
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const list = document.getElementById("cart-items");
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item.name + " - $" + item.price.toFixed(2);
+        list.appendChild(li);
+        total += item.price;
+      });
+      document.getElementById("total").textContent = total.toFixed(2);
+
+      // Show PayPal button if there's something to buy
+      if (cart.length > 0) {
+        document.getElementById("paypal-section").style.display = "block";
+      }
+    }
+  </script>
+</head>
+<body onload="loadCart()">
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="about.html">About</a> |
+    <a href="shop.html">Shop</a> |
+    <a href="cart.html">Cart</a>
+  </nav>
+
+  <h1>Your Cart</h1>
+  <ul id="cart-items"></ul>
+  <p><strong>Total: $<span id="total">0.00</span></strong></p>
+
+  <div id="paypal-section" style="display: none;">
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="kittytherese13@gmail.com">
+      <input type="hidden" name="item_name" value="Sticker Order">
+      <input type="hidden" name="amount" id="paypal-amount" value="">
+      <input type="hidden" name="currency_code" value="USD">
+      <input type="submit" value="Checkout with PayPal">
+    </form>
+  </div>
+
+  <script>
+    window.onload = function () {
+      loadCart();
+      const total = document.getElementById("total").textContent;
+      document.getElementById("paypal-amount").value = total;
+    };
+  </script>
+</body>
+</html>
