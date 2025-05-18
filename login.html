@@ -4,87 +4,19 @@
   <meta charset="UTF-8">
   <title>Soggy Potatoes</title>
   <link rel="stylesheet" href="style.css">
-  <meta charset="UTF-8">
-  <title>Login - Soggy Potatoes</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <link rel="stylesheet" href="style.css">
+  
 </head>
 <body>
 
-<nav style="display: flex; justify-content: space-between; align-items: center;">
-  <div>
-    <a href="index.html">Home</a> |
-    <a href="about.html">About</a> |
-    <a href="shop.html">Shop</a> |
-    <a href="cart.html">Cart</a> |
-    <a href="forums.html">Forums</a>
-  </div>
-  <div id="userStatus"><a href="login.html">Login</a></div>
-</nav>
-
-
-
-  <h1>Login or Sign Up</h1>
-
-  <div style="max-width: 300px; margin: auto;">
-    <input id="email" type="email" placeholder="Email" style="width:100%; margin-bottom:10px;"><br>
-    <input id="password" type="password" placeholder="Password" style="width:100%; margin-bottom:10px;"><br>
-    <button onclick="login()">Log In</button>
-    <button onclick="signup()">Sign Up</button>
-    <p id="status"></p>
-    <p id="sessionInfo"></p>
-  </div>
-
-  <script>
-  const SUPABASE_URL = "https://cdkuwlmddbvgahadowwz.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY";
-
-  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-  async function login() {
-    console.log("Login button clicked");
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    const { error } = await client.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    document.getElementById("status").textContent = error ? error.message : "Logged in!";
-    checkSession();
-  }
-
-  async function signup() {
-    console.log("Signup button clicked");
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    const { error } = await client.auth.signUp({
-      email,
-      password
-    });
-
-    document.getElementById("status").textContent = error ? error.message : "Signup complete!";
-    checkSession();
-  }
-
-  async function checkSession() {
-    const { data, error } = await client.auth.getUser();
-    const user = data?.user;
-    if (user) {
-      document.getElementById("sessionInfo").textContent = "Logged in as: " + user.email;
-    } else {
-      document.getElementById("sessionInfo").textContent = "Not logged in";
-    }
-  }
-
-  checkSession(); // Run on page load
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
+    if (!window.supabase || !window.supabase.createClient) {
+      console.error("Supabase SDK not loaded");
+      return;
+    }
+
     const supabase = window.supabase.createClient(
       "https://cdkuwlmddbvgahadowwz.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY"
