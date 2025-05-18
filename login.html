@@ -27,31 +27,65 @@
   <div style="max-width: 300px; margin: auto;">
     <input id="email" type="email" placeholder="Email" style="width:100%; margin-bottom:10px;"><br>
     <input id="password" type="password" placeholder="Password" style="width:100%; margin-bottom:10px;"><br>
-    <button onclick="login()">Log In</button>
-    <button onclick="signup()">Sign Up</button>
+    <button id="loginButton">Log In</button>
+    <button id="signupButton">Sign Up</button>
     <p id="status"></p>
     <p id="sessionInfo"></p>
   </div>
 
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
 <script>
-  const sdk = document.createElement("script");
-  sdk.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js";
-  sdk.onload = async () => {
+  document.addEventListener("DOMContentLoaded", async () => {
     const supabase = window.supabase.createClient(
       "https://cdkuwlmddbvgahadowwz.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY"
     );
 
+    const loginButton = document.getElementById("loginButton");
+    const signupButton = document.getElementById("signupButton");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const status = document.getElementById("status");
+
+    if (loginButton) {
+      loginButton.addEventListener("click", async () => {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: emailInput.value,
+          password: passwordInput.value
+        });
+        if (error) {
+          status.textContent = "Login failed: " + error.message;
+        } else {
+          status.textContent = "Logged in successfully!";
+          location.reload();
+        }
+      });
+    }
+
+    if (signupButton) {
+      signupButton.addEventListener("click", async () => {
+        const { error } = await supabase.auth.signUp({
+          email: emailInput.value,
+          password: passwordInput.value
+        });
+        if (error) {
+          status.textContent = "Signup failed: " + error.message;
+        } else {
+          status.textContent = "Signup successful! Check your email to confirm.";
+        }
+      });
+    }
+
     const { data: { session } } = await supabase.auth.getSession();
     const user = session?.user;
     const container = document.getElementById("userStatus");
-
     if (container && user) {
       container.innerHTML = `<a href="profile.html">${user.email}</a>`;
     }
-  };
-
-  document.head.appendChild(sdk);
+  });
 </script>
 
 </body>
