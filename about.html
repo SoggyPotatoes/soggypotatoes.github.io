@@ -4,10 +4,25 @@
   <meta charset="UTF-8">
   <title>Soggy Potatoes</title>
   <link rel="stylesheet" href="style.css">
-  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
+  <meta charset="UTF-8">
+     <link rel="stylesheet" href="style.css">
+  <title>About - Soggy Potatoes</title>
 </head>
 <body>
+<nav style="display: flex; justify-content: space-between; align-items: center;">
+  <div>
+    <a href="index.html">Home</a> |
+    <a href="about.html">About</a> |
+    <a href="shop.html">Shop</a> |
+    <a href="cart.html">Cart</a> |
+    <a href="forums.html">Forums</a>
+  </div>
+  <div id="userStatus"><a href="login.html">Login</a></div>
+</nav>
 
+  <h1>About the Artist</h1>
+  <p>This is where you can write a short bio, artistic inspiration, or mission statement.</p>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
 <script>
@@ -26,23 +41,8 @@
     const user = session?.user;
     const container = document.getElementById("userStatus");
 
-    if (container) {
-      if (user) {
-        try {
-          const { data, error } = await supabase
-            .from("profiles")
-            .select("username")
-            .eq("id", user.id)
-            .single();
-
-          const username = data?.username || user.email;
-          container.innerHTML = `<a href="profile.html">${username}</a>`;
-        } catch {
-          container.innerHTML = `<a href="profile.html">${user.email}</a>`;
-        }
-      } else {
-        container.innerHTML = `<a href="login.html">Login</a>`;
-      }
+    if (container && user) {
+      container.innerHTML = `<a href="profile.html">${user.email}</a>`;
     }
   });
 </script>

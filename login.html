@@ -4,10 +4,34 @@
   <meta charset="UTF-8">
   <title>Soggy Potatoes</title>
   <link rel="stylesheet" href="style.css">
-  
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Login - Soggy Potatoes</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<nav style="display: flex; justify-content: space-between; align-items: center;">
+  <div>
+    <a href="index.html">Home</a> |
+    <a href="about.html">About</a> |
+    <a href="shop.html">Shop</a> |
+    <a href="cart.html">Cart</a> |
+    <a href="forums.html">Forums</a>
+  </div>
+  <div id="userStatus"><a href="login.html">Login</a></div>
+</nav>
 
+  <h1>Login or Sign Up</h1>
+
+  <div style="max-width: 300px; margin: auto;">
+    <input id="email" type="email" placeholder="Email" style="width:100%; margin-bottom:10px;"><br>
+    <input id="password" type="password" placeholder="Password" style="width:100%; margin-bottom:10px;"><br>
+    <button onclick="login()">Log In</button>
+    <button onclick="signup()">Sign Up</button>
+    <p id="status"></p>
+    <p id="sessionInfo"></p>
+  </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
 <script>
@@ -26,23 +50,8 @@
     const user = session?.user;
     const container = document.getElementById("userStatus");
 
-    if (container) {
-      if (user) {
-        try {
-          const { data, error } = await supabase
-            .from("profiles")
-            .select("username")
-            .eq("id", user.id)
-            .single();
-
-          const username = data?.username || user.email;
-          container.innerHTML = `<a href="profile.html">${username}</a>`;
-        } catch {
-          container.innerHTML = `<a href="profile.html">${user.email}</a>`;
-        }
-      } else {
-        container.innerHTML = `<a href="login.html">Login</a>`;
-      }
+    if (container && user) {
+      container.innerHTML = `<a href="profile.html">${user.email}</a>`;
     }
   });
 </script>
