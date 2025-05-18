@@ -29,10 +29,22 @@
       transform: scale(1.1);
     }
   </style>
-  
+</head>
+<body>
+<nav style="display: flex; justify-content: space-between; align-items: center;">
+  <div>
+    <a href="index.html">Home</a> |
+    <a href="about.html">About</a> |
+    <a href="shop.html">Shop</a> |
+    <a href="cart.html">Cart</a> |
+    <a href="forums.html">Forums</a>
+  </div>
+  <div id="userStatus"><a href="login.html">Login</a></div>
+</nav>
+
+<!-- Additional page content would go here -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
-
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
     const supabase = window.supabase.createClient(
@@ -49,6 +61,5 @@
     }
   });
 </script>
-
 </body>
 </html>
