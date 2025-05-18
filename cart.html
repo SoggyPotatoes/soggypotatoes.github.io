@@ -2,16 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Soggy Potatoes</title>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
       <link rel="stylesheet" href="style.css">
   <title>Cart - Soggy Potatoes</title>
 </head>
 <body>
-  <nav>
+
+<nav style="display: flex; justify-content: space-between; align-items: center;">
+  <div>
     <a href="index.html">Home</a> |
     <a href="about.html">About</a> |
     <a href="shop.html">Shop</a> |
-    <a href="cart.html">Cart</a>
-  </nav>
+    <a href="cart.html">Cart</a> |
+    <a href="forums.html">Forums</a>
+  </div>
+  <div id="userStatus"><a href="login.html">Login</a></div>
+</nav>
+
+
 
   <h1>Your Cart</h1>
   <ul id="cart-items"></ul>
@@ -79,5 +89,68 @@
 
     window.onload = updateCartDisplay;
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
+<script>
+  const supabase = window.supabase.createClient(
+    "https://cdkuwlmddbvgahadowwz.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY" // your actual anon key
+  );
+
+  async function updateUserStatus() {
+    const user = supabase.auth.user();
+    const container = document.getElementById("userStatus");
+
+    if (user) {
+      // Optionally fetch from `profiles` table:
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", user.id)
+        .single();
+
+      const username = data?.username || user.email;
+      container.innerHTML = `<a href="profile.html">${username}</a>`;
+    } else {
+      container.innerHTML = `<a href="login.html">Login</a>`;
+    }
+  }
+
+  updateUserStatus();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const supabase = window.supabase.createClient(
+      "https://cdkuwlmddbvgahadowwz.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY"
+    );
+
+    const { data: { session } } = await supabase.auth.getSession();
+    const user = session?.user;
+    const container = document.getElementById("userStatus");
+
+    if (container) {
+      if (user) {
+        try {
+          const { data, error } = await supabase
+            .from("profiles")
+            .select("username")
+            .eq("id", user.id)
+            .single();
+
+          const username = data?.username || user.email;
+          container.innerHTML = `<a href="profile.html">${username}</a>`;
+        } catch {
+          container.innerHTML = `<a href="profile.html">${user.email}</a>`;
+        }
+      } else {
+        container.innerHTML = `<a href="login.html">Login</a>`;
+      }
+    }
+  });
+</script>
+
 </body>
 </html>
