@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Shop - Soggy Potatoes</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     .gallery {
       display: flex;
@@ -22,14 +23,21 @@
       width: 100%;
       height: auto;
       object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    .product:hover img {
+      transform: scale(1.1);
     }
   </style>
   <script>
-    function addToCart(id, name, price) {
+    function addToCart(id, name, price, inputId) {
+      const quantity = parseInt(document.getElementById(inputId).value);
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      cart.push({ id, name, price });
+      for (let i = 0; i < quantity; i++) {
+        cart.push({ id, name, price });
+      }
       localStorage.setItem("cart", JSON.stringify(cart));
-      alert(name + " added to cart!");
+      alert(name + " × " + quantity + " added to cart!");
     }
   </script>
 </head>
@@ -42,607 +50,711 @@
   </nav>
 
   <h1>Shop</h1>
+     <input type="text" id="searchInput" placeholder="Search stickers..." onkeyup="filterProducts()" style="padding: 10px; width: 100%; max-width: 300px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #ccc;">
   <div class="gallery">
     <div class='product'>
-      <img src="images/IMG_4266.PNG" alt="uIMG 4266 Sticker">
-      <h3>uIMG 4266 Sticker</h3>
+      <img src="images/Squirrelflight.PNG" alt="Squirrelflight Sticker">
+      <h3>Squirrelflight Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4266', 'uIMG 4266 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Squirrelflight' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Squirrelflight', 'Squirrelflight Sticker', 5.00, 'qty-Squirrelflight')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4312.PNG" alt="uIMG 4312 Sticker">
-      <h3>uIMG 4312 Sticker</h3>
+      <img src="images/Sasha.PNG" alt="Sasha Sticker">
+      <h3>Sasha Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4312', 'uIMG 4312 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Sasha' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Sasha', 'Sasha Sticker', 5.00, 'qty-Sasha')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4306.PNG" alt="uIMG 4306 Sticker">
-      <h3>uIMG 4306 Sticker</h3>
+      <img src="images/Daisy.PNG" alt="Daisy Sticker">
+      <h3>Daisy Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4306', 'uIMG 4306 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Daisy' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Daisy', 'Daisy Sticker', 5.00, 'qty-Daisy')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4450 (1).PNG" alt="uIMG 4450 (1) Sticker">
-      <h3>uIMG 4450 (1) Sticker</h3>
+      <img src="images/Smallear.PNG" alt="Smallear Sticker">
+      <h3>Smallear Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4450 (1)', 'uIMG 4450 (1) Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Smallear' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Smallear', 'Smallear Sticker', 5.00, 'qty-Smallear')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_3859.PNG" alt="uIMG 3859 Sticker">
-      <h3>uIMG 3859 Sticker</h3>
+      <img src="images/Bristlefrost character sheet.PNG" alt="Bristlefrost character sheet Sticker">
+      <h3>Bristlefrost character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_3859', 'uIMG 3859 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Bristlefrost character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Bristlefrost character sheet', 'Bristlefrost character sheet Sticker', 5.00, 'qty-Bristlefrost character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4139.PNG" alt="uIMG 4139 Sticker">
-      <h3>uIMG 4139 Sticker</h3>
+      <img src="images/Spiderleg.PNG" alt="Spiderleg Sticker">
+      <h3>Spiderleg Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4139', 'uIMG 4139 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Spiderleg' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Spiderleg', 'Spiderleg Sticker', 5.00, 'qty-Spiderleg')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4111.PNG" alt="uIMG 4111 Sticker">
-      <h3>uIMG 4111 Sticker</h3>
+      <img src="images/Yellowfang.PNG" alt="Yellowfang Sticker">
+      <h3>Yellowfang Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4111', 'uIMG 4111 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Yellowfang' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Yellowfang', 'Yellowfang Sticker', 5.00, 'qty-Yellowfang')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4461.PNG" alt="uIMG 4461 Sticker">
-      <h3>uIMG 4461 Sticker</h3>
+      <img src="images/Kestrelflight.PNG" alt="Kestrelflight Sticker">
+      <h3>Kestrelflight Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4461', 'uIMG 4461 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Kestrelflight' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Kestrelflight', 'Kestrelflight Sticker', 5.00, 'qty-Kestrelflight')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4259.PNG" alt="uIMG 4259 Sticker">
-      <h3>uIMG 4259 Sticker</h3>
+      <img src="images/Heathertail.PNG" alt="Heathertail Sticker">
+      <h3>Heathertail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4259', 'uIMG 4259 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Heathertail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Heathertail', 'Heathertail Sticker', 5.00, 'qty-Heathertail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4339.PNG" alt="uIMG 4339 Sticker">
-      <h3>uIMG 4339 Sticker</h3>
+      <img src="images/Whitestorm.PNG" alt="Whitestorm Sticker">
+      <h3>Whitestorm Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4339', 'uIMG 4339 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Whitestorm' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Whitestorm', 'Whitestorm Sticker', 5.00, 'qty-Whitestorm')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4107.PNG" alt="uIMG 4107 Sticker">
-      <h3>uIMG 4107 Sticker</h3>
+      <img src="images/Silverstream character sheet.PNG" alt="Silverstream character sheet Sticker">
+      <h3>Silverstream character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4107', 'uIMG 4107 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Silverstream character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Silverstream character sheet', 'Silverstream character sheet Sticker', 5.00, 'qty-Silverstream character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4304.PNG" alt="uIMG 4304 Sticker">
-      <h3>uIMG 4304 Sticker</h3>
+      <img src="images/Waterlily.PNG" alt="Waterlily Sticker">
+      <h3>Waterlily Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4304', 'uIMG 4304 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Waterlily' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Waterlily', 'Waterlily Sticker', 5.00, 'qty-Waterlily')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4315.PNG" alt="uIMG 4315 Sticker">
-      <h3>uIMG 4315 Sticker</h3>
+      <img src="images/Speckletail.PNG" alt="Speckletail Sticker">
+      <h3>Speckletail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4315', 'uIMG 4315 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Speckletail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Speckletail', 'Speckletail Sticker', 5.00, 'qty-Speckletail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4467.PNG" alt="uIMG 4467 Sticker">
-      <h3>uIMG 4467 Sticker</h3>
+      <img src="images/Brambleclaw character sheet.PNG" alt="Bramuleclaw character sheet Sticker">
+      <h3>Bramuleclaw character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4467', 'uIMG 4467 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Brambleclaw character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Brambleclaw character sheet', 'Bramuleclaw character sheet Sticker', 5.00, 'qty-Brambleclaw character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4063.PNG" alt="uIMG 4063 Sticker">
-      <h3>uIMG 4063 Sticker</h3>
+      <img src="images/Sol.PNG" alt="Sol Sticker">
+      <h3>Sol Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4063', 'uIMG 4063 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Sol' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Sol', 'Sol Sticker', 5.00, 'qty-Sol')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_3652.PNG" alt="uIMG 3652 Sticker">
-      <h3>uIMG 3652 Sticker</h3>
+      <img src="images/Redtail.PNG" alt="Redtail Sticker">
+      <h3>Redtail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_3652', 'uIMG 3652 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Redtail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Redtail', 'Redtail Sticker', 5.00, 'qty-Redtail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4211.PNG" alt="uIMG 4211 Sticker">
-      <h3>uIMG 4211 Sticker</h3>
+      <img src="images/Needletail.PNG" alt="Needletail Sticker">
+      <h3>Needletail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4211', 'uIMG 4211 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Needletail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Needletail', 'Needletail Sticker', 5.00, 'qty-Needletail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4359.PNG" alt="uIMG 4359 Sticker">
-      <h3>uIMG 4359 Sticker</h3>
+      <img src="images/Dovewing.PNG" alt="Dovewing Sticker">
+      <h3>Dovewing Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4359', 'uIMG 4359 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Dovewing' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Dovewing', 'Dovewing Sticker', 5.00, 'qty-Dovewing')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4167.PNG" alt="uIMG 4167 Sticker">
-      <h3>uIMG 4167 Sticker</h3>
+      <img src="images/Firestar.PNG" alt="Firestar Sticker">
+      <h3>Firestar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4167', 'uIMG 4167 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Firestar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Firestar', 'Firestar Sticker', 5.00, 'qty-Firestar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4364.PNG" alt="uIMG 4364 Sticker">
-      <h3>uIMG 4364 Sticker</h3>
+      <img src="images/Moonlight character sheet.PNG" alt="Moonlight character sheet Sticker">
+      <h3>Moonlight character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4364', 'uIMG 4364 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Moonlight character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Moonlight character sheet', 'Moonlight character sheet Sticker', 5.00, 'qty-Moonlight character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4416.PNG" alt="uIMG 4416 Sticker">
-      <h3>uIMG 4416 Sticker</h3>
+      <img src="images/Crookedstar.PNG" alt="Crookedstar Sticker">
+      <h3>Crookedstar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4416', 'uIMG 4416 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Crookedstar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Crookedstar', 'Crookedstar Sticker', 5.00, 'qty-Crookedstar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4589.PNG" alt="uIMG 4589 Sticker">
-      <h3>uIMG 4589 Sticker</h3>
+      <img src="images/Spider Paw.PNG" alt="Spider Paw Sticker">
+      <h3>Spider Paw Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4589', 'uIMG 4589 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Spider Paw' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Spider Paw', 'Spider Paw Sticker', 5.00, 'qty-Spider Paw')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4238.PNG" alt="uIMG 4238 Sticker">
-      <h3>uIMG 4238 Sticker</h3>
+      <img src="images/Ashfur.PNG" alt="Ashfur Sticker">
+      <h3>Ashfur Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4238', 'uIMG 4238 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Ashfur' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Ashfur', 'Ashfur Sticker', 5.00, 'qty-Ashfur')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4576.PNG" alt="uIMG 4576 Sticker">
-      <h3>uIMG 4576 Sticker</h3>
+      <img src="images/Halftail.PNG" alt="Halftail Sticker">
+      <h3>Halftail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4576', 'uIMG 4576 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Halftail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Halftail', 'Halftail Sticker', 5.00, 'qty-Halftail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4400.PNG" alt="uIMG 4400 Sticker">
-      <h3>uIMG 4400 Sticker</h3>
+      <img src="images/Deadfoot.PNG" alt="Deadfoot Sticker">
+      <h3>Deadfoot Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4400', 'uIMG 4400 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Deadfoot' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Deadfoot', 'Deadfoot Sticker', 5.00, 'qty-Deadfoot')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4366.PNG" alt="uIMG 4366 Sticker">
-      <h3>uIMG 4366 Sticker</h3>
+      <img src="images/Wioletshine character sheet.PNG" alt="Wioletshine character sheet Sticker">
+      <h3>Wioletshine character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4366', 'uIMG 4366 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Wioletshine character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Wioletshine character sheet', 'Wioletshine character sheet Sticker', 5.00, 'qty-Wioletshine character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4372.PNG" alt="uIMG 4372 Sticker">
-      <h3>uIMG 4372 Sticker</h3>
+      <img src="images/Turtle Tail.PNG" alt="Turtle Tail Sticker">
+      <h3>Turtle Tail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4372', 'uIMG 4372 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Turtle Tail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Turtle Tail', 'Turtle Tail Sticker', 5.00, 'qty-Turtle Tail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4373.PNG" alt="uIMG 4373 Sticker">
-      <h3>uIMG 4373 Sticker</h3>
+      <img src="images/Bluestar.PNG" alt="Bluestar Sticker">
+      <h3>Bluestar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4373', 'uIMG 4373 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Bluestar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Bluestar', 'Bluestar Sticker', 5.00, 'qty-Bluestar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4367.PNG" alt="uIMG 4367 Sticker">
-      <h3>uIMG 4367 Sticker</h3>
+      <img src="images/Scourge.PNG" alt="Scourge Sticker">
+      <h3>Scourge Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4367', 'uIMG 4367 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Scourge' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Scourge', 'Scourge Sticker', 5.00, 'qty-Scourge')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4549.PNG" alt="uIMG 4549 Sticker">
-      <h3>uIMG 4549 Sticker</h3>
+      <img src="images/Crowfeather.PNG" alt="Crowfeather Sticker">
+      <h3>Crowfeather Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4549', 'uIMG 4549 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Crowfeather' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Crowfeather', 'Crowfeather Sticker', 5.00, 'qty-Crowfeather')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4559.PNG" alt="uIMG 4559 Sticker">
-      <h3>uIMG 4559 Sticker</h3>
+      <img src="images/Wetfoot.PNG" alt="Wetfoot Sticker">
+      <h3>Wetfoot Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4559', 'uIMG 4559 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Wetfoot' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Wetfoot', 'Wetfoot Sticker', 5.00, 'qty-Wetfoot')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4363.PNG" alt="uIMG 4363 Sticker">
-      <h3>uIMG 4363 Sticker</h3>
+      <img src="images/Hollyleaf.PNG" alt="Hollyleaf Sticker">
+      <h3>Hollyleaf Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4363', 'uIMG 4363 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Hollyleaf' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Hollyleaf', 'Hollyleaf Sticker', 5.00, 'qty-Hollyleaf')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4606.PNG" alt="uIMG 4606 Sticker">
-      <h3>uIMG 4606 Sticker</h3>
+      <img src="images/Silverstream.PNG" alt="Silverstream Sticker">
+      <h3>Silverstream Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4606', 'uIMG 4606 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Silverstream' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Silverstream', 'Silverstream Sticker', 5.00, 'qty-Silverstream')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4148.PNG" alt="uIMG 4148 Sticker">
-      <h3>uIMG 4148 Sticker</h3>
+      <img src="images/Tallstar.PNG" alt="Tallstar Sticker">
+      <h3>Tallstar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4148', 'uIMG 4148 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Tallstar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Tallstar', 'Tallstar Sticker', 5.00, 'qty-Tallstar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4404.PNG" alt="uIMG 4404 Sticker">
-      <h3>uIMG 4404 Sticker</h3>
+      <img src="images/Sorreltail.PNG" alt="Sorreltail Sticker">
+      <h3>Sorreltail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4404', 'uIMG 4404 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Sorreltail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Sorreltail', 'Sorreltail Sticker', 5.00, 'qty-Sorreltail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_3960.PNG" alt="uIMG 3960 Sticker">
-      <h3>uIMG 3960 Sticker</h3>
+      <img src="images/Runningwind.PNG" alt="Runningwind Sticker">
+      <h3>Runningwind Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_3960', 'uIMG 3960 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Runningwind' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Runningwind', 'Runningwind Sticker', 5.00, 'qty-Runningwind')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4214.PNG" alt="uIMG 4214 Sticker">
-      <h3>uIMG 4214 Sticker</h3>
+      <img src="images/Alderheart character sheet.PNG" alt="Alderheart character sheet Sticker">
+      <h3>Alderheart character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4214', 'uIMG 4214 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Alderheart character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Alderheart character sheet', 'Alderheart character sheet Sticker', 5.00, 'qty-Alderheart character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4412.PNG" alt="uIMG 4412 Sticker">
-      <h3>uIMG 4412 Sticker</h3>
+      <img src="images/Ivypool.PNG" alt="Ivypool Sticker">
+      <h3>Ivypool Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4412', 'uIMG 4412 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Ivypool' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Ivypool', 'Ivypool Sticker', 5.00, 'qty-Ivypool')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4611.PNG" alt="uIMG 4611 Sticker">
-      <h3>uIMG 4611 Sticker</h3>
+      <img src="images/Patchpelt.PNG" alt="Patchpelt Sticker">
+      <h3>Patchpelt Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4611', 'uIMG 4611 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Patchpelt' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Patchpelt', 'Patchpelt Sticker', 5.00, 'qty-Patchpelt')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4407.PNG" alt="uIMG 4407 Sticker">
-      <h3>uIMG 4407 Sticker</h3>
+      <img src="images/Dappletail.PNG" alt="Dappletail Sticker">
+      <h3>Dappletail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4407', 'uIMG 4407 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Dappletail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Dappletail', 'Dappletail Sticker', 5.00, 'qty-Dappletail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4361.PNG" alt="uIMG 4361 Sticker">
-      <h3>uIMG 4361 Sticker</h3>
+      <img src="images/Brambleclaw.PNG" alt="Bramuleclaw Sticker">
+      <h3>Bramuleclaw Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4361', 'uIMG 4361 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Brambleclaw' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Brambleclaw', 'Bramuleclaw Sticker', 5.00, 'qty-Brambleclaw')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4349.PNG" alt="uIMG 4349 Sticker">
-      <h3>uIMG 4349 Sticker</h3>
+      <img src="images/Brightheart character sheet.PNG" alt="Brightheart character sheet Sticker">
+      <h3>Brightheart character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4349', 'uIMG 4349 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Brightheart character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Brightheart character sheet', 'Brightheart character sheet Sticker', 5.00, 'qty-Brightheart character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4201.PNG" alt="uIMG 4201 Sticker">
-      <h3>uIMG 4201 Sticker</h3>
+      <img src="images/Crookedjaw.PNG" alt="Crookedjaw Sticker">
+      <h3>Crookedjaw Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4201', 'uIMG 4201 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Crookedjaw' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Crookedjaw', 'Crookedjaw Sticker', 5.00, 'qty-Crookedjaw')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4017.PNG" alt="uIMG 4017 Sticker">
-      <h3>uIMG 4017 Sticker</h3>
+      <img src="images/Tom.PNG" alt="Tom Sticker">
+      <h3>Tom Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4017', 'uIMG 4017 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Tom' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Tom', 'Tom Sticker', 5.00, 'qty-Tom')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4026.PNG" alt="uIMG 4026 Sticker">
-      <h3>uIMG 4026 Sticker</h3>
+      <img src="images/Cinderpelt.PNG" alt="Cinderpelt Sticker">
+      <h3>Cinderpelt Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4026', 'uIMG 4026 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Cinderpelt' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Cinderpelt', 'Cinderpelt Sticker', 5.00, 'qty-Cinderpelt')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4542.PNG" alt="uIMG 4542 Sticker">
-      <h3>uIMG 4542 Sticker</h3>
+      <img src="images/Feathertail.PNG" alt="Feathertail Sticker">
+      <h3>Feathertail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4542', 'uIMG 4542 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Feathertail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Feathertail', 'Feathertail Sticker', 5.00, 'qty-Feathertail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4350.PNG" alt="uIMG 4350 Sticker">
-      <h3>uIMG 4350 Sticker</h3>
+      <img src="images/Alderheart.PNG" alt="Alderheart Sticker">
+      <h3>Alderheart Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4350', 'uIMG 4350 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Alderheart' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Alderheart', 'Alderheart Sticker', 5.00, 'qty-Alderheart')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4422.PNG" alt="uIMG 4422 Sticker">
-      <h3>uIMG 4422 Sticker</h3>
+      <img src="images/Rock.PNG" alt="Rock Sticker">
+      <h3>Rock Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4422', 'uIMG 4422 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Rock' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Rock', 'Rock Sticker', 5.00, 'qty-Rock')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4393.PNG" alt="uIMG 4393 Sticker">
-      <h3>uIMG 4393 Sticker</h3>
+      <img src="images/Graywing and Slate.PNG" alt="Graywing and Slate Sticker">
+      <h3>Graywing and Slate Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4393', 'uIMG 4393 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Graywing and Slate' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Graywing and Slate', 'Graywing and Slate Sticker', 5.00, 'qty-Graywing and Slate')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4146.PNG" alt="uIMG 4146 Sticker">
-      <h3>uIMG 4146 Sticker</h3>
+      <img src="images/Beetlenose.PNG" alt="Beetlenose Sticker">
+      <h3>Beetlenose Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4146', 'uIMG 4146 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Beetlenose' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Beetlenose', 'Beetlenose Sticker', 5.00, 'qty-Beetlenose')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4184.PNG" alt="uIMG 4184 Sticker">
-      <h3>uIMG 4184 Sticker</h3>
+      <img src="images/Leafpool and Squirrelflight.PNG" alt="Leafpool and Squirrelflight Sticker">
+      <h3>Leafpool and Squirrelflight Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4184', 'uIMG 4184 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Leafpool and Squirrelflight' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Leafpool and Squirrelflight', 'Leafpool and Squirrelflight Sticker', 5.00, 'qty-Leafpool and Squirrelflight')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4423.PNG" alt="uIMG 4423 Sticker">
-      <h3>uIMG 4423 Sticker</h3>
+      <img src="images/Mousefur.PNG" alt="Mousefur Sticker">
+      <h3>Mousefur Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4423', 'uIMG 4423 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Mousefur' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Mousefur', 'Mousefur Sticker', 5.00, 'qty-Mousefur')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4351.PNG" alt="uIMG 4351 Sticker">
-      <h3>uIMG 4351 Sticker</h3>
+      <img src="images/Willowshine.PNG" alt="Willowshine Sticker">
+      <h3>Willowshine Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4351', 'uIMG 4351 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Willowshine' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Willowshine', 'Willowshine Sticker', 5.00, 'qty-Willowshine')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4569.PNG" alt="uIMG 4569 Sticker">
-      <h3>uIMG 4569 Sticker</h3>
+      <img src="images/Darkstripe.PNG" alt="Darkstripe Sticker">
+      <h3>Darkstripe Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4569', 'uIMG 4569 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Darkstripe' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Darkstripe', 'Darkstripe Sticker', 5.00, 'qty-Darkstripe')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4353.PNG" alt="uIMG 4353 Sticker">
-      <h3>uIMG 4353 Sticker</h3>
+      <img src="images/One-eye.PNG" alt="One eye Sticker">
+      <h3>One eye Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4353', 'uIMG 4353 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-One-eye' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('One-eye', 'One eye Sticker', 5.00, 'qty-One-eye')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4352.PNG" alt="uIMG 4352 Sticker">
-      <h3>uIMG 4352 Sticker</h3>
+      <img src="images/Oakheart.PNG" alt="Oakheart Sticker">
+      <h3>Oakheart Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4352', 'uIMG 4352 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Oakheart' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Oakheart', 'Oakheart Sticker', 5.00, 'qty-Oakheart')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4597.PNG" alt="uIMG 4597 Sticker">
-      <h3>uIMG 4597 Sticker</h3>
+      <img src="images/Barkface.PNG" alt="Barkface Sticker">
+      <h3>Barkface Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4597', 'uIMG 4597 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Barkface' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Barkface', 'Barkface Sticker', 5.00, 'qty-Barkface')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_3950.PNG" alt="uIMG 3950 Sticker">
-      <h3>uIMG 3950 Sticker</h3>
+      <img src="images/Spottedleaf.PNG" alt="Spottedleaf Sticker">
+      <h3>Spottedleaf Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_3950', 'uIMG 3950 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Spottedleaf' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Spottedleaf', 'Spottedleaf Sticker', 5.00, 'qty-Spottedleaf')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4018.PNG" alt="uIMG 4018 Sticker">
-      <h3>uIMG 4018 Sticker</h3>
+      <img src="images/Willowpelt.PNG" alt="Willowpelt Sticker">
+      <h3>Willowpelt Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4018', 'uIMG 4018 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Willowpelt' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Willowpelt', 'Willowpelt Sticker', 5.00, 'qty-Willowpelt')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4030.PNG" alt="uIMG 4030 Sticker">
-      <h3>uIMG 4030 Sticker</h3>
+      <img src="images/Leopardstar.PNG" alt="Leopardstar Sticker">
+      <h3>Leopardstar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4030', 'uIMG 4030 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Leopardstar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Leopardstar', 'Leopardstar Sticker', 5.00, 'qty-Leopardstar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4008.PNG" alt="uIMG 4008 Sticker">
-      <h3>uIMG 4008 Sticker</h3>
+      <img src="images/Ferncloud.PNG" alt="Ferncloud Sticker">
+      <h3>Ferncloud Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4008', 'uIMG 4008 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Ferncloud' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Ferncloud', 'Ferncloud Sticker', 5.00, 'qty-Ferncloud')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4020.PNG" alt="uIMG 4020 Sticker">
-      <h3>uIMG 4020 Sticker</h3>
+      <img src="images/Lionheart.PNG" alt="Lionheart Sticker">
+      <h3>Lionheart Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4020', 'uIMG 4020 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Lionheart' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Lionheart', 'Lionheart Sticker', 5.00, 'qty-Lionheart')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/Untitled_Artwork (1).png" alt="uUntitled Artwork (1) Sticker">
-      <h3>uUntitled Artwork (1) Sticker</h3>
+      <img src="images/Brackenfur.PNG" alt="Brackenfur Sticker">
+      <h3>Brackenfur Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('Untitled_Artwork (1)', 'uUntitled Artwork (1) Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Brackenfur' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Brackenfur', 'Brackenfur Sticker', 5.00, 'qty-Brackenfur')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4236.PNG" alt="uIMG 4236 Sticker">
-      <h3>uIMG 4236 Sticker</h3>
+      <img src="images/Sandstorm.PNG" alt="Sandstorm Sticker">
+      <h3>Sandstorm Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4236', 'uIMG 4236 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Sandstorm' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Sandstorm', 'Sandstorm Sticker', 5.00, 'qty-Sandstorm')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4418.PNG" alt="uIMG 4418 Sticker">
-      <h3>uIMG 4418 Sticker</h3>
+      <img src="images/Tigerstar.PNG" alt="Tigerstar Sticker">
+      <h3>Tigerstar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4418', 'uIMG 4418 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Tigerstar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Tigerstar', 'Tigerstar Sticker', 5.00, 'qty-Tigerstar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4356.PNG" alt="uIMG 4356 Sticker">
-      <h3>uIMG 4356 Sticker</h3>
+      <img src="images/Twigbranch chatacter sheet.PNG" alt="Twiguranch chatacter sheet Sticker">
+      <h3>Twiguranch chatacter sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4356', 'uIMG 4356 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Twigbranch chatacter sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Twigbranch chatacter sheet', 'Twiguranch chatacter sheet Sticker', 5.00, 'qty-Twigbranch chatacter sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_3834.PNG" alt="uIMG 3834 Sticker">
-      <h3>uIMG 3834 Sticker</h3>
+      <img src="images/Jayfeather.PNG" alt="Jayfeather Sticker">
+      <h3>Jayfeather Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_3834', 'uIMG 3834 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Jayfeather' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Jayfeather', 'Jayfeather Sticker', 5.00, 'qty-Jayfeather')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4357.PNG" alt="uIMG 4357 Sticker">
-      <h3>uIMG 4357 Sticker</h3>
+      <img src="images/Pinestar.PNG" alt="Pinestar Sticker">
+      <h3>Pinestar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4357', 'uIMG 4357 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Pinestar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Pinestar', 'Pinestar Sticker', 5.00, 'qty-Pinestar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4209.PNG" alt="uIMG 4209 Sticker">
-      <h3>uIMG 4209 Sticker</h3>
+      <img src="images/Ravnepaw character sheet.PNG" alt="Ravnepaw character sheet Sticker">
+      <h3>Ravnepaw character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4209', 'uIMG 4209 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Ravnepaw character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Ravnepaw character sheet', 'Ravnepaw character sheet Sticker', 5.00, 'qty-Ravnepaw character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4584.PNG" alt="uIMG 4584 Sticker">
-      <h3>uIMG 4584 Sticker</h3>
+      <img src="images/Brindleface.PNG" alt="Brindleface Sticker">
+      <h3>Brindleface Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4584', 'uIMG 4584 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Brindleface' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Brindleface', 'Brindleface Sticker', 5.00, 'qty-Brindleface')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4355.PNG" alt="uIMG 4355 Sticker">
-      <h3>uIMG 4355 Sticker</h3>
+      <img src="images/Ravenpaw.PNG" alt="Ravenpaw Sticker">
+      <h3>Ravenpaw Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4355', 'uIMG 4355 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Ravenpaw' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Ravenpaw', 'Ravenpaw Sticker', 5.00, 'qty-Ravenpaw')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4396.PNG" alt="uIMG 4396 Sticker">
-      <h3>uIMG 4396 Sticker</h3>
+      <img src="images/Brokenstar.PNG" alt="Brokenstar Sticker">
+      <h3>Brokenstar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4396', 'uIMG 4396 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Brokenstar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Brokenstar', 'Brokenstar Sticker', 5.00, 'qty-Brokenstar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4181.PNG" alt="uIMG 4181 Sticker">
-      <h3>uIMG 4181 Sticker</h3>
+      <img src="images/Smudge.PNG" alt="Smudge Sticker">
+      <h3>Smudge Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4181', 'uIMG 4181 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Smudge' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Smudge', 'Smudge Sticker', 5.00, 'qty-Smudge')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4354.PNG" alt="uIMG 4354 Sticker">
-      <h3>uIMG 4354 Sticker</h3>
+      <img src="images/Barley.PNG" alt="Barley Sticker">
+      <h3>Barley Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4354', 'uIMG 4354 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Barley' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Barley', 'Barley Sticker', 5.00, 'qty-Barley')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4368.PNG" alt="uIMG 4368 Sticker">
-      <h3>uIMG 4368 Sticker</h3>
+      <img src="images/Clawface.PNG" alt="Clawface Sticker">
+      <h3>Clawface Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4368', 'uIMG 4368 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Clawface' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Clawface', 'Clawface Sticker', 5.00, 'qty-Clawface')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_3981.PNG" alt="uIMG 3981 Sticker">
-      <h3>uIMG 3981 Sticker</h3>
+      <img src="images/Swiftpaw.PNG" alt="Swiftpaw Sticker">
+      <h3>Swiftpaw Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_3981', 'uIMG 3981 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Swiftpaw' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Swiftpaw', 'Swiftpaw Sticker', 5.00, 'qty-Swiftpaw')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4247.PNG" alt="uIMG 4247 Sticker">
-      <h3>uIMG 4247 Sticker</h3>
+      <img src="images/Jake and Tallstar.png" alt="Jake and Tallstar Sticker">
+      <h3>Jake and Tallstar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4247', 'uIMG 4247 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Jake and Tallstar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Jake and Tallstar', 'Jake and Tallstar Sticker', 5.00, 'qty-Jake and Tallstar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4496.PNG" alt="uIMG 4496 Sticker">
-      <h3>uIMG 4496 Sticker</h3>
+      <img src="images/Berrynose.PNG" alt="Berrynose Sticker">
+      <h3>Berrynose Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4496', 'uIMG 4496 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Berrynose' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Berrynose', 'Berrynose Sticker', 5.00, 'qty-Berrynose')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4125.PNG" alt="uIMG 4125 Sticker">
-      <h3>uIMG 4125 Sticker</h3>
+      <img src="images/Tree.PNG" alt="Tree Sticker">
+      <h3>Tree Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4125', 'uIMG 4125 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Tree' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Tree', 'Tree Sticker', 5.00, 'qty-Tree')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4118.PNG" alt="uIMG 4118 Sticker">
-      <h3>uIMG 4118 Sticker</h3>
+      <img src="images/Briarlight.PNG" alt="Briarlight Sticker">
+      <h3>Briarlight Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4118', 'uIMG 4118 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Briarlight' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Briarlight', 'Briarlight Sticker', 5.00, 'qty-Briarlight')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4130.PNG" alt="uIMG 4130 Sticker">
-      <h3>uIMG 4130 Sticker</h3>
+      <img src="images/Tawnypelt.PNG" alt="Tawnypelt Sticker">
+      <h3>Tawnypelt Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4130', 'uIMG 4130 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Tawnypelt' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Tawnypelt', 'Tawnypelt Sticker', 5.00, 'qty-Tawnypelt')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4536.PNG" alt="uIMG 4536 Sticker">
-      <h3>uIMG 4536 Sticker</h3>
+      <img src="images/Leafpool.PNG" alt="Leafpool Sticker">
+      <h3>Leafpool Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4536', 'uIMG 4536 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Leafpool' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Leafpool', 'Leafpool Sticker', 5.00, 'qty-Leafpool')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4456.PNG" alt="uIMG 4456 Sticker">
-      <h3>uIMG 4456 Sticker</h3>
+      <img src="images/Cinderpelt and Lionblaze.PNG" alt="Cinderpelt and Lionulaze Sticker">
+      <h3>Cinderpelt and Lionulaze Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4456', 'uIMG 4456 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Cinderpelt and Lionblaze' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Cinderpelt and Lionblaze', 'Cinderpelt and Lionulaze Sticker', 5.00, 'qty-Cinderpelt and Lionblaze')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4133.PNG" alt="uIMG 4133 Sticker">
-      <h3>uIMG 4133 Sticker</h3>
+      <img src="images/Curlfeather.PNG" alt="Curlfeather Sticker">
+      <h3>Curlfeather Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4133', 'uIMG 4133 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Curlfeather' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Curlfeather', 'Curlfeather Sticker', 5.00, 'qty-Curlfeather')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4292.PNG" alt="uIMG 4292 Sticker">
-      <h3>uIMG 4292 Sticker</h3>
+      <img src="images/Mothwing.PNG" alt="Mothwing Sticker">
+      <h3>Mothwing Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4292', 'uIMG 4292 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Mothwing' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Mothwing', 'Mothwing Sticker', 5.00, 'qty-Mothwing')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4090.PNG" alt="uIMG 4090 Sticker">
-      <h3>uIMG 4090 Sticker</h3>
+      <img src="images/Cloudtail character sheet.PNG" alt="Cloudtail character sheet Sticker">
+      <h3>Cloudtail character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4090', 'uIMG 4090 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Cloudtail character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Cloudtail character sheet', 'Cloudtail character sheet Sticker', 5.00, 'qty-Cloudtail character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4527.PNG" alt="uIMG 4527 Sticker">
-      <h3>uIMG 4527 Sticker</h3>
+      <img src="images/Waterlily character sheet.PNG" alt="Waterlily character sheet Sticker">
+      <h3>Waterlily character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4527', 'uIMG 4527 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Waterlily character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Waterlily character sheet', 'Waterlily character sheet Sticker', 5.00, 'qty-Waterlily character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4122.PNG" alt="uIMG 4122 Sticker">
-      <h3>uIMG 4122 Sticker</h3>
+      <img src="images/Honeyfern.PNG" alt="Honeyfern Sticker">
+      <h3>Honeyfern Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4122', 'uIMG 4122 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Honeyfern' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Honeyfern', 'Honeyfern Sticker', 5.00, 'qty-Honeyfern')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4452.PNG" alt="uIMG 4452 Sticker">
-      <h3>uIMG 4452 Sticker</h3>
+      <img src="images/Littlecloud.PNG" alt="Littlecloud Sticker">
+      <h3>Littlecloud Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4452', 'uIMG 4452 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Littlecloud' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Littlecloud', 'Littlecloud Sticker', 5.00, 'qty-Littlecloud')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4320.PNG" alt="uIMG 4320 Sticker">
-      <h3>uIMG 4320 Sticker</h3>
+      <img src="images/Foxleap character sheet.PNG" alt="Foxleap character sheet Sticker">
+      <h3>Foxleap character sheet Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4320', 'uIMG 4320 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Foxleap character sheet' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Foxleap character sheet', 'Foxleap character sheet Sticker', 5.00, 'qty-Foxleap character sheet')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4283.PNG" alt="uIMG 4283 Sticker">
-      <h3>uIMG 4283 Sticker</h3>
+      <img src="images/Wafflepelt.PNG" alt="Wafflepelt Sticker">
+      <h3>Wafflepelt Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4283', 'uIMG 4283 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Wafflepelt' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Wafflepelt', 'Wafflepelt Sticker', 5.00, 'qty-Wafflepelt')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4297.PNG" alt="uIMG 4297 Sticker">
-      <h3>uIMG 4297 Sticker</h3>
+      <img src="images/Longtail.PNG" alt="Longtail Sticker">
+      <h3>Longtail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4297', 'uIMG 4297 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Longtail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Longtail', 'Longtail Sticker', 5.00, 'qty-Longtail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4268.PNG" alt="uIMG 4268 Sticker">
-      <h3>uIMG 4268 Sticker</h3>
+      <img src="images/Graystripe.PNG" alt="Graystripe Sticker">
+      <h3>Graystripe Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4268', 'uIMG 4268 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Graystripe' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Graystripe', 'Graystripe Sticker', 5.00, 'qty-Graystripe')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4056.PNG" alt="uIMG 4056 Sticker">
-      <h3>uIMG 4056 Sticker</h3>
+      <img src="images/Blackstar.PNG" alt="Blackstar Sticker">
+      <h3>Blackstar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4056', 'uIMG 4056 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Blackstar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Blackstar', 'Blackstar Sticker', 5.00, 'qty-Blackstar')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4040.PNG" alt="uIMG 4040 Sticker">
-      <h3>uIMG 4040 Sticker</h3>
+      <img src="images/Brightheart and Cloudtail.PNG" alt="Brightheart and Cloudtail Sticker">
+      <h3>Brightheart and Cloudtail Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4040', 'uIMG 4040 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Brightheart and Cloudtail' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Brightheart and Cloudtail', 'Brightheart and Cloudtail Sticker', 5.00, 'qty-Brightheart and Cloudtail')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_3908.PNG" alt="uIMG 3908 Sticker">
-      <h3>uIMG 3908 Sticker</h3>
+      <img src="images/Purdy.PNG" alt="Purdy Sticker">
+      <h3>Purdy Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_3908', 'uIMG 3908 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Purdy' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Purdy', 'Purdy Sticker', 5.00, 'qty-Purdy')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4322.PNG" alt="uIMG 4322 Sticker">
-      <h3>uIMG 4322 Sticker</h3>
+      <img src="images/Jayfeather and Stick.PNG" alt="Jayfeather and Stick Sticker">
+      <h3>Jayfeather and Stick Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4322', 'uIMG 4322 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Jayfeather and Stick' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Jayfeather and Stick', 'Jayfeather and Stick Sticker', 5.00, 'qty-Jayfeather and Stick')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4445.PNG" alt="uIMG 4445 Sticker">
-      <h3>uIMG 4445 Sticker</h3>
+      <img src="images/Mudfur.PNG" alt="Mudfur Sticker">
+      <h3>Mudfur Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4445', 'uIMG 4445 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Mudfur' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Mudfur', 'Mudfur Sticker', 5.00, 'qty-Mudfur')">Add to Cart</button>
     </div>
     <div class='product'>
-      <img src="images/IMG_4479.PNG" alt="uIMG 4479 Sticker">
-      <h3>uIMG 4479 Sticker</h3>
+      <img src="images/Mistystar.PNG" alt="Mistystar Sticker">
+      <h3>Mistystar Sticker</h3>
       <p>$5.00</p>
-      <button onclick="addToCart('IMG_4479', 'uIMG 4479 Sticker', 5.00)">Add to Cart</button>
-    </div>
-    <div class='product'>
-      <img src="images/IMG_4257.PNG" alt="uIMG 4257 Sticker">
-      <h3>uIMG 4257 Sticker</h3>
-      <p>$5.00</p>
-      <button onclick="addToCart('IMG_4257', 'uIMG 4257 Sticker', 5.00)">Add to Cart</button>
+      <input type='number' id='qty-Mistystar' value='1' min='1' style='width: 50px;'>
+      <button onclick="addToCart('Mistystar', 'Mistystar Sticker', 5.00, 'qty-Mistystar')">Add to Cart</button>
     </div>
   </div>
+<script>
+  function filterProducts() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const products = document.getElementsByClassName('product');
+    for (let i = 0; i < products.length; i++) {
+      const name = products[i].getElementsByTagName('h3')[0].textContent.toLowerCase();
+      products[i].style.display = name.includes(input) ? 'block' : 'none';
+    }
+  }
+</script>
 </body>
 </html>

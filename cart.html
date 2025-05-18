@@ -2,28 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+      <link rel="stylesheet" href="style.css">
   <title>Cart - Soggy Potatoes</title>
-  <script>
-    function loadCart() {
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      const list = document.getElementById("cart-items");
-      let total = 0;
-      cart.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item.name + " - $" + item.price.toFixed(2);
-        list.appendChild(li);
-        total += item.price;
-      });
-      document.getElementById("total").textContent = total.toFixed(2);
-
-      // Show PayPal button if there's something to buy
-      if (cart.length > 0) {
-        document.getElementById("paypal-section").style.display = "block";
-      }
-    }
-  </script>
 </head>
-<body onload="loadCart()">
+<body>
   <nav>
     <a href="index.html">Home</a> |
     <a href="about.html">About</a> |
@@ -47,11 +29,55 @@
   </div>
 
   <script>
-    window.onload = function () {
-      loadCart();
-      const total = document.getElementById("total").textContent;
-      document.getElementById("paypal-amount").value = total;
-    };
+    function groupCartItems(cart) {
+      const grouped = {};
+      cart.forEach(item => {
+        const key = item.name;
+        if (!grouped[key]) {
+          grouped[key] = { ...item, quantity: 0 };
+        }
+        grouped[key].quantity++;
+      });
+      return Object.values(grouped);
+    }
+
+    function updateCartDisplay() {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const grouped = groupCartItems(cart);
+      const list = document.getElementById("cart-items");
+      list.innerHTML = "";
+      let total = 0;
+
+      grouped.forEach(item => {
+        const li = document.createElement("li");
+        li.innerHTML = `${item.name} - $${item.price.toFixed(2)} × ${item.quantity}
+          <button onclick="changeQuantity('${item.name}', 1)">+</button>
+          <button onclick="changeQuantity('${item.name}', -1)">−</button>`;
+        list.appendChild(li);
+        total += item.price * item.quantity;
+      });
+
+      document.getElementById("total").textContent = total.toFixed(2);
+      document.getElementById("paypal-amount").value = total.toFixed(2);
+      document.getElementById("paypal-section").style.display = cart.length > 0 ? "block" : "none";
+    }
+
+    function changeQuantity(name, delta) {
+      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+      if (delta > 0) {
+        const item = cart.find(i => i.name === name);
+        if (item) cart.push(item);
+      } else {
+        const index = cart.findIndex(i => i.name === name);
+        if (index !== -1) cart.splice(index, 1);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartDisplay();
+    }
+
+    window.onload = updateCartDisplay;
   </script>
 </body>
 </html>
