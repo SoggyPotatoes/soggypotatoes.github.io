@@ -129,3 +129,19 @@ button:hover {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+/* Cart page styles */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.cart-item input[type="number"] {
+  width: 60px;
+}
+
+.cart-item .item-total {
+  margin-left: auto;
+}
