@@ -755,27 +755,6 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    if (!window.supabase || !window.supabase.createClient) {
-      console.error("Supabase SDK not loaded");
-      return;
-    }
-
-    const supabase = window.supabase.createClient(
-      "https://cdkuwlmddbvgahadowwz.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY"
-    );
-
-    const { data: { session } } = await supabase.auth.getSession();
-    const user = session?.user;
-    const container = document.getElementById("userStatus");
-
-    if (container && user) {
-      container.innerHTML = `<a href="profile.html">${user.email}</a>`;
-    }
-  });
-</script>
+<script src="auth.js"></script>
 </body>
 </html>
