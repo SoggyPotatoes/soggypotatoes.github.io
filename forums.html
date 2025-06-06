@@ -21,17 +21,7 @@
 <h1>Forums Coming Soon</h1>
 <p>Stay tuned! The community forums are under construction.</p>
 
-<script>
-  const sdk = document.createElement("script");
-  sdk.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.6/dist/umd/supabase.min.js";
-  sdk.onload = async () => {
-    const supabase = window.supabase.createClient(
-      "https://cdkuwlmddbvgahadowwz.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY"
-    );
-  };
-  document.head.appendChild(sdk);
-</script>
+<script src="auth.js"></script>
 
 </body>
 </html>
