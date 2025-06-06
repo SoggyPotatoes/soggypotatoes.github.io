@@ -43,6 +43,13 @@
       localStorage.setItem("cart", JSON.stringify(cart));
       alert(name + " × " + quantity + " added to cart!");
     }
+    function filterProducts() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      document.querySelectorAll(".gallery .product").forEach((prod) => {
+        const name = prod.querySelector("h3").textContent.toLowerCase();
+        prod.style.display = name.includes(query) ? "" : "none";
+      });
+    }
   </script>
 </head>
 <body>
