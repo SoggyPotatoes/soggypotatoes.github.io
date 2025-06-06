@@ -33,9 +33,11 @@
 
     async function loadAvatar() {
       if (session && session.user) {
-        const { data, error } = await supabase.storage.from('avatars').download(session.user.id);
+        const { data, error } = await supabase.storage
+          .from('avatars')
+          .createSignedUrl(session.user.id, 60);
         if (data && !error) {
-          avatarImg.src = URL.createObjectURL(data);
+          avatarImg.src = data.signedUrl;
         } else {
           avatarImg.src = 'images/profile-placeholder.svg';
         }
