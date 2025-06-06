@@ -22,7 +22,7 @@
 </nav>
 
   <h1>Your Cart</h1>
-  <ul id="cart-items"></ul>
+  <ul id="cart-items" style="list-style: none; padding: 0;"></ul>
   <p><strong>Total: $<span id="total">0.00</span></strong></p>
 
   <div id="paypal-section" style="display: none;">
@@ -37,13 +37,14 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    function renderCart() {
       const items = JSON.parse(localStorage.getItem("cart") || "[]");
       const list = document.getElementById("cart-items");
       const totalSpan = document.getElementById("total");
       const paypalAmount = document.getElementById("paypal-amount");
       const paypalSection = document.getElementById("paypal-section");
 
+      list.innerHTML = "";
       const grouped = {};
       let total = 0;
 
@@ -56,17 +57,49 @@
         }
       }
 
-      for (const key in grouped) {
-        const { name, price, qty } = grouped[key];
+      for (const id in grouped) {
+        const { name, price, qty } = grouped[id];
         const li = document.createElement("li");
-        li.textContent = `${name} × ${qty} - $${(price * qty).toFixed(2)}`;
+        li.className = "cart-item";
+        li.innerHTML = `
+          <span class="item-name">${name}</span>
+          <input type="number" min="1" value="${qty}" data-id="${id}" />
+          <button class="remove-btn" data-id="${id}">Remove</button>
+          <span class="item-total">$${(price * qty).toFixed(2)}</span>
+        `;
         list.appendChild(li);
       }
 
       totalSpan.textContent = total.toFixed(2);
       if (paypalAmount) paypalAmount.value = total.toFixed(2);
       if (paypalSection) paypalSection.style.display = items.length ? "block" : "none";
-    });
+
+      list.querySelectorAll("input[type=number]").forEach((input) => {
+        input.addEventListener("change", () => {
+          const newQty = parseInt(input.value) || 1;
+          const id = input.dataset.id;
+          const baseItem = grouped[id];
+          const others = items.filter((it) => it.id !== id);
+          const updated = [
+            ...others,
+            ...Array.from({ length: newQty }, () => ({ id, name: baseItem.name, price: baseItem.price }))
+          ];
+          localStorage.setItem("cart", JSON.stringify(updated));
+          renderCart();
+        });
+      });
+
+      list.querySelectorAll(".remove-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.id;
+          const updated = items.filter((it) => it.id !== id);
+          localStorage.setItem("cart", JSON.stringify(updated));
+          renderCart();
+        });
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", renderCart);
   </script>
 
   <script src="auth.js"></script>
