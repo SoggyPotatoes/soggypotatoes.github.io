@@ -2,14 +2,25 @@ const SUPABASE_URL = "https://cdkuwlmddbvgahadowwz.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY";
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const PLACEHOLDER_IMG = 'images/profile-placeholder.svg';
+
+async function getAvatarUrl(userId) {
+  const { data, error } = await supabase.storage.from('avatars').download(userId);
+  if (data && !error) {
+    return URL.createObjectURL(data);
+  }
+  return PLACEHOLDER_IMG;
+}
 
 async function updateUserStatus() {
   const { data: { session } } = await supabase.auth.getSession();
   const container = document.getElementById("userStatus");
   if (!container) return;
   if (session && session.user) {
+    const avatarUrl = await getAvatarUrl(session.user.id);
     container.innerHTML = `
-      <div class="dropdown">
+      <div class="dropdown" style="text-align:center;">
+        <img src="${avatarUrl}" alt="Profile" class="avatar">
         <a href="profile.html" id="userName">${session.user.email}</a>
         <div class="dropdown-content">
           <a href="profile.html">Profile</a>
