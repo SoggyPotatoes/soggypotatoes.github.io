@@ -154,3 +154,38 @@ img.avatar {
 .cart-item .item-total {
   margin-left: auto;
 }
+
+/* Forums page styles */
+.thread-list .thread {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.thread-list .thread:hover {
+  background: #f9f9f9;
+}
+
+#threadView {
+  margin-top: 20px;
+}
+
+#postList .post {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+#postList .post-info {
+  font-size: 0.8em;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+#newPostForm textarea {
+  width: 100%;
+  min-height: 80px;
+  margin-bottom: 10px;
+}
+
