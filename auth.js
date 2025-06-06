@@ -38,8 +38,10 @@ async function updateUserStatus() {
       });
     }
   } else {
+    // Display a placeholder avatar with the login link when the user is not logged in
     container.innerHTML = `
-      <div class="dropdown">
+      <div class="dropdown" style="text-align:center;">
+        <img src="${PLACEHOLDER_IMG}" alt="Profile" class="avatar">
         <a href="login.html" id="loginLink">Log In</a>
         <div class="dropdown-content">
           <a href="profile.html">Profile</a>
