@@ -23,7 +23,7 @@ images/Spider Paw.PNG
 images/Ashfur.PNG
 images/Halftail.PNG
 images/Deadfoot.PNG
-images/Wioletshine character sheet.PNG
+images/Violetshine character sheet.PNG
 images/Turtle Tail.PNG
 images/Bluestar.PNG
 images/Scourge.PNG
