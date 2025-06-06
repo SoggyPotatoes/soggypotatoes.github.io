@@ -96,6 +96,7 @@ button {
 button:hover {
   background-color: #ab47bc;
 }
+
 /* Dropdown menu styles */
 .dropdown {
   position: relative;
@@ -128,6 +129,14 @@ button:hover {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+/* Avatar Image Sizes */
+img.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 4px;
 }
 
 /* Cart page styles */

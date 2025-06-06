@@ -19,8 +19,48 @@
 </nav>
 
 <h1>Profile</h1>
-<p>This is a placeholder profile page.</p>
+<div style="text-align:center;">
+  <img id="currentAvatar" class="avatar" src="images/profile-placeholder.svg" alt="Current profile picture">
+  <input type="file" id="avatarInput" accept="image/*">
+  <button id="uploadAvatarButton">Upload Profile Picture</button>
+</div>
 
 <script src="auth.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    const avatarImg = document.getElementById('currentAvatar');
+
+    async function loadAvatar() {
+      if (session && session.user) {
+        const { data, error } = await supabase.storage.from('avatars').download(session.user.id);
+        if (data && !error) {
+          avatarImg.src = URL.createObjectURL(data);
+        } else {
+          avatarImg.src = 'images/profile-placeholder.svg';
+        }
+      }
+    }
+
+    await loadAvatar();
+
+    const uploadBtn = document.getElementById('uploadAvatarButton');
+    if (uploadBtn) {
+      uploadBtn.addEventListener('click', async () => {
+        const fileInput = document.getElementById('avatarInput');
+        if (!fileInput.files.length || !(session && session.user)) return;
+        const file = fileInput.files[0];
+        await supabase.storage.from('avatars').remove([session.user.id]);
+        const { error } = await supabase.storage.from('avatars').upload(session.user.id, file, { upsert: true });
+        if (!error) {
+          await loadAvatar();
+          await updateUserStatus();
+        } else {
+          alert('Upload failed: ' + error.message);
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>
