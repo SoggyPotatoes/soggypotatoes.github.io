@@ -139,6 +139,13 @@ img.avatar {
   margin: 0 auto 4px;
 }
 
+/* Larger display for the profile page avatar */
+#currentAvatar {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}
+
 /* Cart page styles */
 .cart-item {
   display: flex;
