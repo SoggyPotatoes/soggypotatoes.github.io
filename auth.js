@@ -4,6 +4,36 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const PLACEHOLDER_IMG = 'images/profile-placeholder.svg';
 
+// Username helpers
+async function getUsername(userId) {
+  const { data, error } = await supabase
+    .from('usernames')
+    .select('username')
+    .eq('id', userId)
+    .single();
+  if (error || !data) return null;
+  return data.username;
+}
+
+async function isUsernameAvailable(username) {
+  if (!username) return false;
+  const { data } = await supabase
+    .from('usernames')
+    .select('id')
+    .eq('username', username)
+    .single();
+  return !data;
+}
+
+async function setUsername(userId, username) {
+  const available = await isUsernameAvailable(username);
+  if (!available) return { error: 'unavailable' };
+  const { error } = await supabase
+    .from('usernames')
+    .upsert({ id: userId, username });
+  return { error };
+}
+
 async function getAvatarUrl(userId) {
   const { data: files, error: listError } = await supabase.storage
     .from('avatars')
@@ -25,10 +55,12 @@ async function updateUserStatus() {
   if (!container) return;
   if (session && session.user) {
     const avatarUrl = await getAvatarUrl(session.user.id);
+    const username = await getUsername(session.user.id);
+    const displayName = username || session.user.email;
     container.innerHTML = `
       <div class="dropdown" style="text-align:center;">
         <img src="${avatarUrl}" alt="Profile" class="avatar">
-        <a href="profile.html" id="userName">${session.user.email}</a>
+        <a href="profile.html" id="userName">${displayName}</a>
         <div class="dropdown-content">
           <a href="profile.html">Profile</a>
           <a href="settings.html">Settings</a>

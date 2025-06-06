@@ -56,6 +56,7 @@
           status.textContent = "Login failed: " + error.message;
         } else {
           status.textContent = "Logged in successfully!";
+          await promptForUsername();
           location.reload();
         }
       });
@@ -71,8 +72,32 @@
           status.textContent = "Signup failed: " + error.message;
         } else {
           status.textContent = "Signup successful! Check your email to confirm.";
+          await promptForUsername();
         }
       });
+    }
+
+    async function promptForUsername() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!(session && session.user)) return;
+      const { data } = await supabase
+        .from('usernames')
+        .select('username')
+        .eq('id', session.user.id)
+        .single();
+      if (data && data.username) return; // already set
+      let username = prompt('Create a username');
+      if (!username) return;
+      const { data: exists } = await supabase
+        .from('usernames')
+        .select('id')
+        .eq('username', username)
+        .single();
+      if (exists) {
+        alert('Username is unavailable');
+        return;
+      }
+      await supabase.from('usernames').upsert({ id: session.user.id, username });
     }
 
   });
