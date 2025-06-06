@@ -169,10 +169,22 @@ img.avatar {
   border-radius: 8px;
   margin-bottom: 10px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .thread-list .thread:hover {
   background: #f9f9f9;
+}
+
+.thread-list .thread-meta {
+  font-size: 0.85em;
+  color: #666;
+  margin-top: 4px;
+}
+
+.thread-list .thread-title {
+  font-weight: bold;
 }
 
 #threadView {
