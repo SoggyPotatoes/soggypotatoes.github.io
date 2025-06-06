@@ -2,13 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Soggy Potatoes</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
-  <meta charset="UTF-8">
-  <title>Login - Soggy Potatoes</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <link rel="stylesheet" href="style.css">
+  <script src="auth.js"></script>
+  <title>Login - Soggy Potatoes</title>
 </head>
 <body>
 <nav style="display: flex; justify-content: space-between; align-items: center;">
@@ -36,31 +33,24 @@
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    const supabase = window.supabase.createClient(
-      "https://cdkuwlmddbvgahadowwz.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY"
-    );
-
+  document.addEventListener("DOMContentLoaded", () => {
     const loginButton = document.getElementById("loginButton");
     const signupButton = document.getElementById("signupButton");
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
     const status = document.getElementById("status");
 
+    updateUserStatus();
+
     if (loginButton) {
       loginButton.addEventListener("click", async () => {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: emailInput.value,
-          password: passwordInput.value
-        });
-        if (error) {
-          status.textContent = "Login failed: " + error.message;
-        } else {
+        try {
+          await loginUser(emailInput.value, passwordInput.value);
           status.textContent = "Logged in successfully!";
-          location.reload();
+          updateUserStatus();
+        } catch (error) {
+          status.textContent = "Login failed: " + error.message;
         }
       });
     }
@@ -77,13 +67,6 @@
           status.textContent = "Signup successful! Check your email to confirm.";
         }
       });
-    }
-
-    const { data: { session } } = await supabase.auth.getSession();
-    const user = session?.user;
-    const container = document.getElementById("userStatus");
-    if (container && user) {
-      container.innerHTML = `<a href="profile.html">${user.email}</a>`;
     }
   });
 </script>
