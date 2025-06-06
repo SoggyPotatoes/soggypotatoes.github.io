@@ -18,10 +18,114 @@
   <div id="userStatus"></div>
 </nav>
 
-<h1>Forums Coming Soon</h1>
-<p>Stay tuned! The community forums are under construction.</p>
+<h1>Forums</h1>
+
+<div id="createThread">
+  <h2>Create a Thread</h2>
+  <form id="newThreadForm">
+    <input type="text" id="threadName" placeholder="Thread name" required>
+    <button type="submit">Create</button>
+  </form>
+</div>
+
+<div id="threadList" class="thread-list"></div>
+
+<div id="threadView" style="display:none;">
+  <button id="backButton">&larr; Back to Threads</button>
+  <h2 id="currentThreadName"></h2>
+  <div id="postList"></div>
+  <form id="newPostForm">
+    <textarea id="postText" placeholder="Write a post..." required></textarea>
+    <button type="submit">Post</button>
+  </form>
+</div>
 
 <script src="auth.js"></script>
+<script>
+let threads = [];
+let currentThreadId = null;
+let currentUserEmail = 'Guest';
+
+function loadThreads() {
+  threads = JSON.parse(localStorage.getItem('forumThreads') || '[]');
+}
+
+function saveThreads() {
+  localStorage.setItem('forumThreads', JSON.stringify(threads));
+}
+
+function displayThreads() {
+  const list = document.getElementById('threadList');
+  list.innerHTML = '';
+  threads.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'thread';
+    div.textContent = t.name;
+    div.addEventListener('click', () => openThread(t.id));
+    list.appendChild(div);
+  });
+}
+
+function openThread(id) {
+  currentThreadId = id;
+  const thread = threads.find(t => t.id === id);
+  document.getElementById('currentThreadName').textContent = thread.name;
+  displayPosts(thread);
+  document.getElementById('threadView').style.display = 'block';
+  document.getElementById('createThread').style.display = 'none';
+  document.getElementById('threadList').style.display = 'none';
+}
+
+function displayPosts(thread) {
+  const container = document.getElementById('postList');
+  container.innerHTML = '';
+  thread.posts
+    .sort((a,b) => a.time - b.time)
+    .forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'post';
+      div.innerHTML = `<div class="post-info">${p.user} - ${new Date(p.time).toLocaleString()}</div><div>${p.text}</div>`;
+      container.appendChild(div);
+    });
+}
+
+document.getElementById('backButton').addEventListener('click', () => {
+  document.getElementById('threadView').style.display = 'none';
+  document.getElementById('createThread').style.display = 'block';
+  document.getElementById('threadList').style.display = 'block';
+  displayThreads();
+});
+
+document.getElementById('newThreadForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = document.getElementById('threadName').value.trim();
+  if(!name) return;
+  threads.push({ id: Date.now(), name, posts: [] });
+  saveThreads();
+  displayThreads();
+  e.target.reset();
+});
+
+document.getElementById('newPostForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const text = document.getElementById('postText').value.trim();
+  if(!text) return;
+  const thread = threads.find(t => t.id === currentThreadId);
+  thread.posts.push({ user: currentUserEmail, time: Date.now(), text });
+  saveThreads();
+  displayPosts(thread);
+  e.target.reset();
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+  loadThreads();
+  displayThreads();
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session && session.user) {
+    currentUserEmail = session.user.email;
+  }
+});
+</script>
 
 </body>
 </html>
