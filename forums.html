@@ -48,6 +48,9 @@ let currentUserEmail = 'Guest';
 
 function loadThreads() {
   threads = JSON.parse(localStorage.getItem('forumThreads') || '[]');
+  threads.forEach(t => {
+    if (!t.created) t.created = Date.now();
+  });
 }
 
 function saveThreads() {
@@ -60,7 +63,22 @@ function displayThreads() {
   threads.forEach(t => {
     const div = document.createElement('div');
     div.className = 'thread';
-    div.textContent = t.name;
+
+    const lastPost = t.posts.slice(-1)[0];
+    const meta = document.createElement('div');
+    meta.className = 'thread-meta';
+    meta.textContent =
+      `Posts: ${t.posts.length} | Created: ${new Date(t.created).toLocaleString()} | ` +
+      (lastPost
+        ? `Last: ${new Date(lastPost.time).toLocaleString()} by ${lastPost.user}`
+        : 'No posts yet');
+
+    const title = document.createElement('div');
+    title.className = 'thread-title';
+    title.textContent = t.name;
+
+    div.appendChild(title);
+    div.appendChild(meta);
     div.addEventListener('click', () => openThread(t.id));
     list.appendChild(div);
   });
@@ -100,7 +118,7 @@ document.getElementById('newThreadForm').addEventListener('submit', e => {
   e.preventDefault();
   const name = document.getElementById('threadName').value.trim();
   if(!name) return;
-  threads.push({ id: Date.now(), name, posts: [] });
+  threads.push({ id: Date.now(), name, created: Date.now(), posts: [] });
   saveThreads();
   displayThreads();
   e.target.reset();
