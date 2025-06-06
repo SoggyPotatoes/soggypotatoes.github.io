@@ -37,8 +37,10 @@
     function addToCart(id, name, price, inputId) {
       const quantity = parseInt(document.getElementById(inputId).value);
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const img = document.getElementById(inputId).parentElement.querySelector("img");
+      const image = img ? img.getAttribute("src") : "";
       for (let i = 0; i < quantity; i++) {
-        cart.push({ id, name, price });
+        cart.push({ id, name, price, image });
       }
       localStorage.setItem("cart", JSON.stringify(cart));
       alert(name + " × " + quantity + " added to cart!");
