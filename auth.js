@@ -5,9 +5,11 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const PLACEHOLDER_IMG = 'images/profile-placeholder.svg';
 
 async function getAvatarUrl(userId) {
-  const { data, error } = await supabase.storage.from('avatars').download(userId);
+  const { data, error } = await supabase.storage
+    .from('avatars')
+    .createSignedUrl(userId, 60);
   if (data && !error) {
-    return URL.createObjectURL(data);
+    return data.signedUrl;
   }
   return PLACEHOLDER_IMG;
 }
