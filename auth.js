@@ -5,11 +5,16 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const PLACEHOLDER_IMG = 'images/profile-placeholder.svg';
 
 async function getAvatarUrl(userId) {
-  const { data, error } = await supabase.storage
+  const { data: files, error: listError } = await supabase.storage
     .from('avatars')
-    .createSignedUrl(userId, 60);
-  if (data && !error) {
-    return data.signedUrl;
+    .list('', { search: userId });
+  if (!listError && files.some((f) => f.name === userId)) {
+    const { data, error } = await supabase.storage
+      .from('avatars')
+      .createSignedUrl(userId, 60);
+    if (data && !error) {
+      return data.signedUrl;
+    }
   }
   return PLACEHOLDER_IMG;
 }
