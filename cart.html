@@ -36,7 +36,40 @@
     </form>
   </div>
 
-<script src="auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = JSON.parse(localStorage.getItem("cart") || "[]");
+      const list = document.getElementById("cart-items");
+      const totalSpan = document.getElementById("total");
+      const paypalAmount = document.getElementById("paypal-amount");
+      const paypalSection = document.getElementById("paypal-section");
+
+      const grouped = {};
+      let total = 0;
+
+      for (const item of items) {
+        total += item.price;
+        if (grouped[item.id]) {
+          grouped[item.id].qty += 1;
+        } else {
+          grouped[item.id] = { ...item, qty: 1 };
+        }
+      }
+
+      for (const key in grouped) {
+        const { name, price, qty } = grouped[key];
+        const li = document.createElement("li");
+        li.textContent = `${name} × ${qty} - $${(price * qty).toFixed(2)}`;
+        list.appendChild(li);
+      }
+
+      totalSpan.textContent = total.toFixed(2);
+      if (paypalAmount) paypalAmount.value = total.toFixed(2);
+      if (paypalSection) paypalSection.style.display = items.length ? "block" : "none";
+    });
+  </script>
+
+  <script src="auth.js"></script>
 
 </body>
 </html>
