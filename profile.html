@@ -33,14 +33,19 @@
 
     async function loadAvatar() {
       if (session && session.user) {
-        const { data, error } = await supabase.storage
+        const { data: files, error: listError } = await supabase.storage
           .from('avatars')
-          .createSignedUrl(session.user.id, 60);
-        if (data && !error) {
-          avatarImg.src = data.signedUrl;
-        } else {
-          avatarImg.src = 'images/profile-placeholder.svg';
+          .list('', { search: session.user.id });
+        if (!listError && files.some(f => f.name === session.user.id)) {
+          const { data, error } = await supabase.storage
+            .from('avatars')
+            .createSignedUrl(session.user.id, 60);
+          if (data && !error) {
+            avatarImg.src = data.signedUrl;
+            return;
+          }
         }
+        avatarImg.src = 'images/profile-placeholder.svg';
       }
     }
 
