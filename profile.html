@@ -25,11 +25,20 @@
   <button id="uploadAvatarButton">Upload Profile Picture</button>
 </div>
 
+<div style="text-align:center; margin-top:20px;">
+  <p>Your username: <span id="currentUsername">Loading...</span></p>
+  <input type="text" id="newUsername" placeholder="New username">
+  <button id="changeUsernameButton">Switch Username</button>
+</div>
+
 <script src="auth.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', async () => {
     const { data: { session } } = await supabase.auth.getSession();
     const avatarImg = document.getElementById('currentAvatar');
+    const currentUsername = document.getElementById('currentUsername');
+    const newUsernameInput = document.getElementById('newUsername');
+    const changeUsernameBtn = document.getElementById('changeUsernameButton');
 
     async function loadAvatar() {
       if (session && session.user) {
@@ -51,6 +60,19 @@
 
     await loadAvatar();
 
+    async function loadUsername() {
+      if (session && session.user) {
+        const { data } = await supabase
+          .from('usernames')
+          .select('username')
+          .eq('id', session.user.id)
+          .single();
+        currentUsername.textContent = data ? data.username : 'None';
+      }
+    }
+
+    await loadUsername();
+
     const uploadBtn = document.getElementById('uploadAvatarButton');
     if (uploadBtn) {
       uploadBtn.addEventListener('click', async () => {
@@ -65,6 +87,28 @@
         } else {
           alert('Upload failed: ' + error.message);
         }
+      });
+    }
+
+    if (changeUsernameBtn) {
+      changeUsernameBtn.addEventListener('click', async () => {
+        if (!(session && session.user)) return;
+        const desired = newUsernameInput.value.trim();
+        if (!desired) return;
+
+        const { error } = await setUsername(session.user.id, desired);
+        if (error) {
+          if (error === 'unavailable') {
+            alert('Username is unavailable');
+          } else {
+            alert('Failed to update username');
+          }
+          return;
+        }
+
+        await loadUsername();
+        await updateUserStatus();
+        newUsernameInput.value = '';
       });
     }
   });
