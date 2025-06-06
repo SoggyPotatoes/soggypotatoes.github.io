@@ -208,3 +208,14 @@ img.avatar {
   margin-bottom: 10px;
 }
 
+#newPostForm input[type="file"] {
+  margin-bottom: 10px;
+}
+
+#postList .post-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 8px;
+  border-radius: 8px;
+}
+
