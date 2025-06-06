@@ -8,7 +8,16 @@ async function updateUserStatus() {
   const container = document.getElementById("userStatus");
   if (!container) return;
   if (session && session.user) {
-    container.innerHTML = `<span>${session.user.email}</span> | <a href="#" id="logoutLink">Logout</a>`;
+    container.innerHTML = `
+      <div class="dropdown">
+        <a href="profile.html" id="userName">${session.user.email}</a>
+        <div class="dropdown-content">
+          <a href="profile.html">Profile</a>
+          <a href="settings.html">Settings</a>
+          <a href="track-order.html">Track Your Order</a>
+          <a href="#" id="logoutLink">Log Out</a>
+        </div>
+      </div>`;
     const logoutLink = document.getElementById("logoutLink");
     if (logoutLink) {
       logoutLink.addEventListener("click", async (e) => {
@@ -18,7 +27,16 @@ async function updateUserStatus() {
       });
     }
   } else {
-    container.innerHTML = `<a href="login.html">Login</a>`;
+    container.innerHTML = `
+      <div class="dropdown">
+        <a href="login.html" id="loginLink">Log In</a>
+        <div class="dropdown-content">
+          <a href="profile.html">Profile</a>
+          <a href="settings.html">Settings</a>
+          <a href="track-order.html">Track Your Order</a>
+          <a href="login.html">Log In</a>
+        </div>
+      </div>`;
   }
 }
 
