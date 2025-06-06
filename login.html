@@ -32,15 +32,13 @@
     <p id="sessionInfo"></p>
   </div>
 
-
-
+  <script src="auth.js"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
-    const supabase = window.supabase.createClient(
-      "https://cdkuwlmddbvgahadowwz.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNka3V3bG1kZGJ2Z2FoYWRvd3d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc1OTIzMTIsImV4cCI6MjA2MzE2ODMxMn0.z8M2fgghS59tJ16IxW97Jvq9uEg4NOBaZWov8iri7BY"
-    );
+
+    // `auth.js` already initializes Supabase and exposes `supabase` globally.
+    // Use that instance here instead of creating a new one.
 
     const loginButton = document.getElementById("loginButton");
     const signupButton = document.getElementById("signupButton");
@@ -85,7 +83,6 @@
     }
   });
 </script>
-<script src="auth.js"></script>
 
 </body>
 </html>
