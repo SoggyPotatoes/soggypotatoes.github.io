@@ -18,7 +18,7 @@
     <a href="cart.html">Cart</a> |
     <a href="forums.html">Forums</a>
   </div>
-  <div id="userStatus"><a href="login.html">Login</a></div>
+  <div id="userStatus"></div>
 </nav>
 
   <h1>Login or Sign Up</h1>
@@ -75,12 +75,6 @@
       });
     }
 
-    const { data: { session } } = await supabase.auth.getSession();
-    const user = session?.user;
-    const container = document.getElementById("userStatus");
-    if (container && user) {
-      container.innerHTML = `<a href="profile.html">${user.email}</a>`;
-    }
   });
 </script>
 

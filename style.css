@@ -96,3 +96,36 @@ button {
 button:hover {
   background-color: #ab47bc;
 }
+/* Dropdown menu styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 1;
+  text-align: left;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 6px 0;
+  color: #9a4c95;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  color: #ce6fd2;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
