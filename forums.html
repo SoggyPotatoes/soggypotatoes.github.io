@@ -36,6 +36,7 @@
   <div id="postList"></div>
   <form id="newPostForm">
     <textarea id="postText" placeholder="Write a post..." required></textarea>
+    <input type="file" id="postImage" accept="image/*">
     <button type="submit">Post</button>
   </form>
 </div>
@@ -102,7 +103,21 @@ function displayPosts(thread) {
     .forEach(p => {
       const div = document.createElement('div');
       div.className = 'post';
-      div.innerHTML = `<div class="post-info">${p.user} - ${new Date(p.time).toLocaleString()}</div><div>${p.text}</div>`;
+      const info = document.createElement('div');
+      info.className = 'post-info';
+      info.textContent = `${p.user} - ${new Date(p.time).toLocaleString()}`;
+      div.appendChild(info);
+      if (p.text) {
+        const textDiv = document.createElement('div');
+        textDiv.textContent = p.text;
+        div.appendChild(textDiv);
+      }
+      if (p.image) {
+        const img = document.createElement('img');
+        img.src = p.image;
+        img.className = 'post-image';
+        div.appendChild(img);
+      }
       container.appendChild(div);
     });
 }
@@ -124,12 +139,22 @@ document.getElementById('newThreadForm').addEventListener('submit', e => {
   e.target.reset();
 });
 
-document.getElementById('newPostForm').addEventListener('submit', e => {
+document.getElementById('newPostForm').addEventListener('submit', async e => {
   e.preventDefault();
   const text = document.getElementById('postText').value.trim();
-  if(!text) return;
+  const fileInput = document.getElementById('postImage');
+  const file = fileInput.files[0];
+  if(!text && !file) return;
+  let imageData = null;
+  if (file) {
+    imageData = await new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
+  }
   const thread = threads.find(t => t.id === currentThreadId);
-  thread.posts.push({ user: currentUserEmail, time: Date.now(), text });
+  thread.posts.push({ user: currentUserEmail, time: Date.now(), text, image: imageData });
   saveThreads();
   displayPosts(thread);
   e.target.reset();
