@@ -756,7 +756,16 @@
   </div>
 
 <script>
-  
+  function filterProducts() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const products = document.getElementsByClassName('product');
+    for (let i = 0; i < products.length; i++) {
+      const name = products[i].getElementsByTagName('h3')[0].textContent.toLowerCase();
+      products[i].style.display = name.includes(input) ? 'block' : 'none';
+    }
+  }
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@1.40.0/dist/umd/supabase.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
